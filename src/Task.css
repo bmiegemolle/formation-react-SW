@@ -1,0 +1,7 @@
+.Task-todo {
+}
+
+.Task-done {
+  text-decoration: line-through;
+  color: #cccccc;
+}
