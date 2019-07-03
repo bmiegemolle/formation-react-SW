@@ -1,30 +1,24 @@
 import React from 'react';
+import {connect} from 'react-redux';
 import './App.css';
 import Task from './Task';
-
-
+import {updateTasks} from './actions/todolist';
+import _ from 'lodash';
 
 class App extends React.Component {
-
 
   constructor(props) {
     super(props);
     this.state = {
-      tasks : [
-        {name: "Learn React", done: false},
-        {name: "Learn CSS", done: true},
-        {name: "Web development", done: true}
-      ],
-      newTask: ""
+      newTask: ''
     };    
   }
 
   handleToggle = (task, index) => {
-    const newState = {...this.state};
-    newState.tasks[index].done = !task.done;
-    this.setState(newState);
+    const newTasks = _.cloneDeep(this.props.tasks);
+    newTasks[index].done = !task.done;
+    this.props.updateTasks(newTasks);
   }
-
 
   handleNewTaskChange = (event) => {
     this.setState({newTask: event.target.value});
@@ -32,18 +26,19 @@ class App extends React.Component {
 
   handleNewTaskSubmit = (event) => {
     event.preventDefault();
+    this.props.updateTasks([...this.props.tasks, {
+      name: this.state.newTask, 
+      done: false}
+    ]);
     this.setState({
-      tasks: [...this.state.tasks, {
-        name: this.state.newTask, 
-        done: false}],
-      newTask: ""
+      newTask: ''
     });
   }
 
   render() {
     return (
       <div className="App">
-        {this.state.tasks.map((task, index) => (
+        {this.props.tasks.map((task, index) => (
             <Task key={index} name={task.name} done={task.done} handleToggle={this.handleToggle.bind(this, task, index)}
             />
         ))}
@@ -60,4 +55,16 @@ class App extends React.Component {
   }
 }
 
-export default App;
+const mapStateToProps = (state)=>{
+  return{
+    tasks: state.tasks,
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    updateTasks: (tasks) => dispatch(updateTasks(tasks)),
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
