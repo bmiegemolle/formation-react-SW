@@ -1,0 +1,36 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<App /> matches snapshot 1`] = `
+<div
+  className="App"
+>
+  <div
+    className="Task-done"
+    onClick={[Function]}
+  >
+    Task1
+  </div>
+  <div
+    className="Task-todo"
+    onClick={[Function]}
+  >
+    Task2
+  </div>
+  <form
+    onSubmit={[Function]}
+  >
+    <label>
+      New task:
+      <input
+        onChange={[Function]}
+        type="text"
+        value=""
+      />
+    </label>
+    <input
+      type="submit"
+      value="Add"
+    />
+  </form>
+</div>
+`;

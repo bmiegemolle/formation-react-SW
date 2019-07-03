@@ -5,7 +5,7 @@ import Task from './Task';
 import {updateTasks} from './actions/todolist';
 import _ from 'lodash';
 
-class App extends React.Component {
+export class App extends React.Component {
 
   constructor(props) {
     super(props);
